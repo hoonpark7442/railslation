@@ -1,0 +1,20 @@
+<%= form_for(User.new, as: :user, url: session_path(:user)) do |f| %>
+  <div class="crayons-field mb-3">
+    <%= f.label :email, class: "crayons-field__label" %>
+    <%= f.email_field :email, autocomplete: "email", class: "crayons-textfield" %>
+  </div>
+
+  <div class="crayons-field mb-3">
+    <%= f.label :password, class: "crayons-field__label" %>
+    <%= f.password_field :password, autocomplete: "current-password", class: "crayons-textfield" %>
+  </div>
+
+  <div class="actions pt-3">
+    <%= f.submit t("views.auth.provider.login"), class: "crayons-btn crayons-btn--l w-100" %>
+  </div>
+<% end %>
+<!-- <p class="pt-6 fs-s align-center">
+  <a href="<%#= new_password_path(:user) %>">
+    <%#= t("views.auth.login.forgot") %>
+  </a>
+</p> -->

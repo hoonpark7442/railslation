@@ -1,0 +1,7 @@
+ko:
+  views:
+    search:
+      placeholder: 검색
+      icon:
+        aria_label: Search
+        title: 검색

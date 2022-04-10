@@ -1,0 +1,30 @@
+<section class="crayons-layout">
+  <div class="registration crayons-card">
+    <div class="registration__content">
+      <h1 class="registration__title">
+        Welcome to Railslation 
+      </h1>
+    </div>
+
+    <div class="registration__actions">
+      <%= render partial: "shared/authentication/providers_registration_form" %>
+
+      <% if params[:state] == "new-user" %>
+        <div class="registration__hr">
+          <span class="registration__hr-label">
+            이미 계정이 있으신가요? <a href="<%= sign_up_path %>">Log in</a>
+          </span>
+        </div>
+      <% else %>
+        <div class="registration__actions-email" id="sign-in-password-form">
+          <div class="registration__hr">
+            <span class="registration__hr-label">
+              이메일 계정으로 로그인 하기
+            </span>
+          </div>
+          <%= render partial: "shared/authentication/email_login_form" %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</section>

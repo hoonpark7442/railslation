@@ -1,0 +1,5 @@
+<% if params[:state] == "email_signup" %>
+  <%= render "shared/authentication/email_registration_form" %>
+<% else %>
+  <%= render "devise/registrations/registration_form" %>
+<% end %>

@@ -1,0 +1,21 @@
+<div class="registration__actions-providers">
+  <% authentication_enabled_providers.each do |provider| %>
+    <%= form_with url: provider.authentication_path, class: "flex w-100", local: true do |f| %>
+      <%= f.button type: :submit, class: "crayons-btn crayons-btn--l crayons-btn--brand-#{provider.provider_name} crayons-btn--icon-left grow-1 whitespace-nowrap" do %>
+        <img
+          src="<%= asset_path("#{provider.provider_name}_icon.png") %>"
+          style="width: 25px; height: 25px;"
+          class= "crayons-icon"
+        />
+        <%= t("views.auth.provider.text", action: params[:state] == "new-user" ? t("views.auth.provider.signup") : t("views.auth.provider.login"), provider: provider.official_name) %>
+      <% end %>
+    <% end %>
+  <% end %>
+  
+  <% if params[:state] == "new-user" %>
+    <%= link_to "#{t('views.auth.provider.email.text')}".html_safe,
+                request.params.merge(state: "email_signup"),
+                class: "crayons-btn crayons-btn--l crayons-btn--brand-email crayons-btn--icon-left whitespace-nowrap",
+                data: { no_instant: "" } %>
+  <% end %>
+</div>

@@ -1,0 +1,40 @@
+---
+ko:
+  views:
+    auth:
+      login:
+        aria_label: Log in
+        text: Log in
+        continue: Continue
+        forgot: I forgot my password
+      provider:
+        text: "%{provider}로 %{action}"
+        login: 로그인
+        signup: "회원가입"
+        email:
+          icon: email
+          text: Sign up with Email
+      register:
+        errors:
+          one: 앗, %{count} 개의 문제가 발생하였습니다ㅜㅜ
+          other: 앗, %{count} 개의 문제가 발생하였습니다ㅜㅜ
+        create: Railslation 계정 만들기
+        field:
+          name:
+            aria_label: 이름
+            label: 이름
+          email:
+            aria_label: 이메일
+            label: 이메일
+            placeholder: wowpow@example.com
+          password:
+            aria_label: 비밀번호
+            desc: Minimum 8 characters
+            label: 비밀번호
+            placeholder: "••••••••"
+            hide: Hide password
+            show: Show password
+          confirm:
+            aria_label: 비밀번호 확인
+            label: 비밀번호 확인
+        submit: 회원가입 완료하기

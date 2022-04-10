@@ -1,0 +1,19 @@
+---
+ko:
+  views:
+    main:
+      aria_home: "%{site} Home"
+      header:
+        create_account: 회원가입
+        login: 로그인
+        nav:
+          aria_label: Navigation menu
+      nav:
+        admin: Admin
+        dashboard: Dashboard
+        placeholder: "..."
+        list: Reading list
+        other: Other
+        settings: Settings
+      create_post: 포스트 작성
+      signout: 로그아웃
