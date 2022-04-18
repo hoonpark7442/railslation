@@ -11,5 +11,6 @@ Rails.application.routes.draw do
   end
   
   root "stories#index"
-  # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
+  
+  get "/async_info/base_data", controller: "async_info#base_data", defaults: { format: :json }
 end
