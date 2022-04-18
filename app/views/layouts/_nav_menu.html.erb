@@ -1,4 +1,4 @@
-<div class="left-2 right-2 s:right-4 s:left-auto m:-mr-2 top-100 -mt-1 dropdown-content">
+<div class="crayons-dropdown left-2 right-2 s:right-4 s:left-auto m:-mr-2 top-100 -mt-1 dropdown-content">
   <ul class="m-0" id="crayons-header__menu__dropdown__list">
     <li id="user-profile-link-placeholder" class="border-0 border-b-1 border-solid border-base-20 pb-2 mb-2">
       <a id="first-nav-link" class="crayons-link crayons-link--block">
@@ -20,7 +20,7 @@
     </li>
 
     <li class="pt-2">
-      <a href="<%= root_path %>" class="crayons-link crayons-link--block" id="last-nav-link"><%= t("views.main.signout") %></a>
+      <a data-method="delete" href="<%= destroy_user_session_path %>" class="crayons-link crayons-link--block" id="last-nav-link"><%= t("views.main.signout") %></a>
     </li>
   </ul>
 </div>

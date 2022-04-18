@@ -7,12 +7,16 @@
     <%= csp_meta_tag %>
 
     <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+
+    <!-- asset pipline js-->
+    <%= javascript_include_tag "base", defer: true %>
+    <!-- webpacker js-->
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
     
     <meta name="theme-color" content="#000000" />
   </head>
 
-  <body class="default-header">
+  <body data-user-status="<%= user_logged_in_status %>" class="default-header">
     <%= render "layouts/styles", qualifier: "secondary" %>
     <%= render "layouts/top_bar" %>
     <%= yield %>
