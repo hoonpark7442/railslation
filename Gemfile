@@ -45,6 +45,9 @@ gem 'inline_svg', '~> 1.8' # Embed SVG documents in your Rails views and style t
 
 gem 'sprockets', '~> 4.0'
 
+# markdown
+gem 'redcarpet', '~> 3.5' # A fast, safe and extensible Markdown to (X)HTML parser
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
