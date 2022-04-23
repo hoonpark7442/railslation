@@ -13,4 +13,6 @@ Rails.application.routes.draw do
   root "stories#index"
   
   get "/async_info/base_data", controller: "async_info#base_data", defaults: { format: :json }
+
+  resources :articles
 end
