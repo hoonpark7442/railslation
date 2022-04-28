@@ -6,5 +6,6 @@ class User < ApplicationRecord
          omniauth_providers: %i[kakao naver]
 
   has_many :social_auths, dependent: :delete_all
+  has_many :collections, dependent: :destroy
 end
 
