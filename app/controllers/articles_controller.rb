@@ -15,10 +15,12 @@ class ArticlesController < ApplicationController
   end
 
   def create
-    @article = Article.new(article_params)
+    # @article = Article.new(article_params)
+    @user = current_user
+    @article = Articles::Creator.call(@user, article_params)
 
     respond_to do |format|
-      if @article.save
+      if @article.persisted?
         format.html { redirect_to @article, notice: 'article was successfully created.' }
         format.json { render :show, status: :created, location: @article }
       else

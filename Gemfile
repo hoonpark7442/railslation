@@ -47,12 +47,25 @@ gem 'sprockets', '~> 4.0'
 
 # markdown
 gem 'redcarpet', '~> 3.5' # A fast, safe and extensible Markdown to (X)HTML parser
+gem 'front_matter_parser', '~> 1.0', '>= 1.0.1' # Parse a front matter from syntactically correct strings or files
+gem 'rouge', '~> 3.28' # A pure-ruby code highlighter
+
+# # html parser
+# gem 'nokogiri', '~> 1.13', '>= 1.13.4' # HTML, XML, SAX, and Reader parser
+
+# tag
+gem 'acts-as-taggable-on', '~> 9.0', '>= 9.0.1' # A tagging plugin for Rails applications that allows for custom tagging along dynamic contexts
+
+# use counter_culture instead of counter_cache
+gem 'counter_culture', '~> 0.1.33' # counter_culture provides turbo-charged counter caches that are kept up-to-date
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
   gem 'rspec-rails', '~> 5.1', '>= 5.1.1'
   gem 'dotenv-rails', '~> 2.7', '>= 2.7.6'
+
+  gem 'pry', '~> 0.14.1'
 end
 
 group :development do
