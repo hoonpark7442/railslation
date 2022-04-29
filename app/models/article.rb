@@ -4,15 +4,30 @@ class Article < ApplicationRecord
 	belongs_to :user
 	belongs_to :collection, optional: true
 
+	delegate :name, to: :user, prefix: true
+	delegate :username, to: :user, prefix: true
+
 	counter_culture :user
 
 	validates :body_markdown, length: { minimum: 0, allow_nil: false }
   validates :body_markdown, uniqueness: { scope: %i[user_id title] }
-  # validates :slug, uniqueness: { scope: :user_id }
+  validates :slug, uniqueness: { scope: :user_id }
   validates :title, presence: true, length: { maximum: 128 }
 
-  # before_validation :evaluate_markdown, :create_slug
-  before_validation :evaluate_markdown
+  before_validation :evaluate_markdown, :create_slug
+
+  before_save :update_cached_user
+  before_save :set_numbers
+  before_save :set_base_score
+  before_save :set_caches
+  before_create :set_password
+
+  after_commit :touch_collection
+
+  scope :published, -> {
+  	where(published: true)
+  	.where("published_at <= ?", Time.current)
+  }
 
   private
 
@@ -25,6 +40,14 @@ class Article < ApplicationRecord
   	self.processed_html = parsed_markdown.finalize
 
   	evaluate_frontmatter(parsed.front_matter)
+  end
+
+  def create_slug
+  	if slug.blank? && title.present? && !published
+  		self.slug = title_to_slug + "-temp-slug-#{rand(10_000)}"
+  	elsif should_generate_final_slug?
+  		self.slug = title_to_slug
+  	end
   end
 
   def evaluate_frontmatter(front_matter)
@@ -40,5 +63,55 @@ class Article < ApplicationRecord
   	self.tag_list = []
 
   	tag_list.add(tags, parse: true)
+  end
+
+  def title_to_slug
+  	"#{Sterile.sluggerize(title)}-#{rand(100_000).to_s(26)}"
+  end
+
+  def should_generate_final_slug?
+  	(title && published && slug.blank?) || (title && published && slug.include?("-temp-slug-"))
+  end
+
+  def update_cached_user
+  	self.cached_user = user ? Articles::CachedEntity.from_object(user) : nil
+  end
+
+  def set_numbers
+  	self.featured_number = Time.current.to_i if featured_number.blank? && published
+  	set_nth_published_by_author
+  end
+
+  def set_nth_published_by_author
+  	return unless nth_published_by_author.zero? && published
+
+  	# devto 코드는 index로 체크하는 거지만 벤치마킹 결과 그냥 size로 하는게 더 빠르다
+  	self.nth_published_by_author = user.articles.published.ids.size + 1
+  end
+
+  def set_base_score
+  	self.hotness_score = 1000 if hotness_score.blank?
+  end
+
+  def set_caches
+  	return unless user
+
+  	self.cached_user_name = user_name
+  	self.cached_user_username = user_username
+  	self.path = caculated_path.downcase
+  end
+
+  def caculated_path
+  	"#{user_username}/#{slug}"
+  end
+
+  def set_password
+  	return if password.present?
+
+  	self.password = SecureRandom.hex(60)
+  end
+
+  def touch_collection
+  	collection.touch if collection && previous_changes.present?
   end
 end

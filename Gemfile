@@ -56,6 +56,9 @@ gem 'rouge', '~> 3.28' # A pure-ruby code highlighter
 # tag
 gem 'acts-as-taggable-on', '~> 9.0', '>= 9.0.1' # A tagging plugin for Rails applications that allows for custom tagging along dynamic contexts
 
+# slug generator
+gem 'sterile', '~> 1.0', '>= 1.0.23' # Transliterate Unicode and Latin1 text to 7-bit ASCII for URLs
+
 # use counter_culture instead of counter_cache
 gem 'counter_culture', '~> 0.1.33' # counter_culture provides turbo-charged counter caches that are kept up-to-date
 

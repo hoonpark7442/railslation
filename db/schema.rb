@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_04_27_050437) do
+ActiveRecord::Schema.define(version: 2022_04_29_033846) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_trgm"
@@ -48,6 +48,7 @@ ActiveRecord::Schema.define(version: 2022_04_27_050437) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.integer "reading_time", default: 0
+    t.string "cached_user_username"
     t.index "user_id, title, digest(body_markdown, 'sha512'::text)", name: "index_articles_on_user_id_and_title_and_digest_body_markdown", unique: true
     t.index ["cached_tag_list"], name: "index_articles_on_cached_tag_list", opclass: :gin_trgm_ops, using: :gin
     t.index ["collection_id"], name: "index_articles_on_collection_id"
@@ -56,6 +57,7 @@ ActiveRecord::Schema.define(version: 2022_04_27_050437) do
     t.index ["hotness_score", "comments_count"], name: "index_articles_on_hotness_score_and_comments_count"
     t.index ["path"], name: "index_articles_on_path"
     t.index ["public_reactions_count"], name: "index_articles_on_public_reactions_count", order: :desc
+    t.index ["published"], name: "index_articles_on_published"
     t.index ["reading_list_document"], name: "index_articles_on_reading_list_document", using: :gin
     t.index ["slug", "user_id"], name: "index_articles_on_slug_and_user_id", unique: true
   end
@@ -137,6 +139,7 @@ ActiveRecord::Schema.define(version: 2022_04_27_050437) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.integer "articles_count", default: 0, null: false
+    t.string "username"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
