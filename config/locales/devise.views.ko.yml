@@ -11,6 +11,10 @@ ko:
               too_short: 패스워드가 너무 짧습니다. 8자 이상으로 작성해주세요.
             password_confirmation:
               confirmation: 비밀번호가 일치하지 않습니다.
+            username: 
+              too_short: 닉네임이 너무 짧습니다. 2자 이상으로 작성해주세요.
+              invalid: 닉네임은 영어로만 작성가능합니다. 
+              taken: 이미 사용 중인 닉네임입니다.
     attributes:
       user:
         confirmation_sent_at: 확인 메일 전송 시간

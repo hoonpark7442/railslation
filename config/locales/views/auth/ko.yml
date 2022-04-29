@@ -23,6 +23,9 @@ ko:
           name:
             aria_label: 이름
             label: 이름
+          username:
+            aria_label: 닉네임
+            label: 닉네임
           email:
             aria_label: 이메일
             label: 이메일

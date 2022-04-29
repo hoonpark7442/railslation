@@ -28,6 +28,15 @@
     </div>
 
     <div class="crayons-field mt-2">
+      <%= f.label :username, class: "crayons-field__label", aria: { label: t("views.auth.register.field.username.aria_label") } do %>
+        <%= t("views.auth.register.field.username.label") %>
+        <span>(영어로 작성해주세요)</span>
+        <span class="crayons-field__required crayons-hover-tooltip">*</span>
+      <% end %>
+      <%= f.text_field :username, class: "crayons-textfield", required: true %>
+    </div>
+
+    <div class="crayons-field mt-2">
       <%= f.label :email, class: "crayons-field__label", aria: { label: t("views.auth.register.field.email.aria_label") } do %>
         <%= t("views.auth.register.field.email.label") %>
         <span class="crayons-field__required crayons-hover-tooltip">*</span>

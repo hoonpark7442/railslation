@@ -42,10 +42,15 @@ module Users
       user = User.find_or_create_by(email: auth.email) do |usr|
         usr.email = auth.email
         usr.name = params["info"]["name"]
+        usr.username = generate_username(auth)
         usr.password = Devise.friendly_token[0, 20]
       end
 
       auth.user = user
+    end
+
+    def generate_username(auth)
+      auth.email.split("@")[0]
     end
 
   end
