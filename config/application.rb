@@ -19,6 +19,10 @@ module Railslation
     
     config.time_zone = 'Seoul'
 
+    config.generators do |g|
+      g.fixture_replacement :factory_bot, dir: 'spec/factories'
+    end
+
     # Configuration for the application, engines, and railties goes here.
     #
     # These settings can be overridden in specific environments using the files
