@@ -68,7 +68,11 @@ group :development, :test do
   gem 'rspec-rails', '~> 5.1', '>= 5.1.1'
   gem 'dotenv-rails', '~> 2.7', '>= 2.7.6'
 
+  gem 'bullet', '~> 7.0', '>= 7.0.1'
+
   gem 'pry', '~> 0.14.1'
+
+  gem 'faker', '~> 2.20'
 end
 
 group :development do
@@ -88,6 +92,8 @@ group :test do
   gem 'selenium-webdriver'
   # Easy installation and use of web drivers to run system tests with browsers
   gem 'webdrivers'
+  gem 'factory_bot_rails', '~> 6.2'
+  gem 'shoulda-matchers', '~> 5.1', require: false # Simple one-liner tests for common Rails functionality
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem

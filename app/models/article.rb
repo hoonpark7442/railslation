@@ -11,8 +11,10 @@ class Article < ApplicationRecord
 
 	validates :body_markdown, length: { minimum: 0, allow_nil: false }
   validates :body_markdown, uniqueness: { scope: %i[user_id title] }
+  validates :slug, presence: { if: :published? }
   validates :slug, uniqueness: { scope: :user_id }
   validates :title, presence: true, length: { maximum: 128 }
+  validates :user_id, presence: true
 
   before_validation :evaluate_markdown, :create_slug
 
