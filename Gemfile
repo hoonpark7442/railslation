@@ -62,6 +62,10 @@ gem 'sterile', '~> 1.0', '>= 1.0.23' # Transliterate Unicode and Latin1 text to 
 # use counter_culture instead of counter_cache
 gem 'counter_culture', '~> 0.1.33' # counter_culture provides turbo-charged counter caches that are kept up-to-date
 
+# image upload
+gem 'image_processing', '~> 1.12', '>= 1.12.2'
+gem "aws-sdk-s3", require: false
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
