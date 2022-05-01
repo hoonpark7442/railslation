@@ -15,4 +15,6 @@ Rails.application.routes.draw do
   get "/async_info/base_data", controller: "async_info#base_data", defaults: { format: :json }
 
   resources :articles
+
+  post "/image_uploads", to: "article_images#create"
 end

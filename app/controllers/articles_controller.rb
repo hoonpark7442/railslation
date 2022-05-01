@@ -8,7 +8,8 @@ class ArticlesController < ApplicationController
   end
 
   def new
-    @article = Article.new
+    @user = current_user
+    @article = Articles::Builder.call(@user)
   end
 
   def edit
