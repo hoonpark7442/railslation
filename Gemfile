@@ -66,6 +66,9 @@ gem 'counter_culture', '~> 0.1.33' # counter_culture provides turbo-charged coun
 gem 'image_processing', '~> 1.12', '>= 1.12.2'
 gem "aws-sdk-s3", require: false
 
+# add role
+gem 'rolify', '~> 6.0'
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]

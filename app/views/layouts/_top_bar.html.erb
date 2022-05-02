@@ -25,7 +25,9 @@
         <%= inline_svg_tag("search.svg", aria: true, class: "crayons-icon", title: t("views.search.icon.title")) %>
       </a>
       <% if user_signed_in? %>
-        <a href="<%= new_article_path %>" class="crayons-btn hidden mr-2 whitespace-nowrap m:block ml-auto"><%= t("views.main.create_post") %></a>
+        <div class="js-header-menu-admin-link hidden">
+          <a href="<%= new_article_path %>" class="crayons-btn hidden mr-2 whitespace-nowrap m:block ml-auto"><%= t("views.main.create_post") %></a>
+        </div>
 
         <div class="dropdown" id="crayons-header__menu">
           <button type="button" class="crayons-header__menu__trigger" id="member-menu-button" aria-label="<%= t("views.main.header.nav.aria_label") %>" aria-expanded="false">

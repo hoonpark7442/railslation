@@ -10,7 +10,7 @@
     <!-- asset pipline js-->
     <%= javascript_include_tag "base", defer: true %>
     <!-- webpacker js-->
-    <%#= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_packs_with_chunks_tag 'application' %>
     
     <meta name="theme-color" content="#000000" />
   </head>
