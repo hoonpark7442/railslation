@@ -21,7 +21,9 @@ class AsyncInfoController < ApplicationController
       {
         id: @user.id,
         name: @user.name,
-        created_at: @user.created_at
+        username: @user.username,
+        created_at: @user.created_at,
+        admin: @user.admin?
       }
     end.to_json
   end
