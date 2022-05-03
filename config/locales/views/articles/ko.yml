@@ -1,0 +1,13 @@
+---
+ko:
+  views:
+    articles:
+      meta:
+        description: 레일즈레이션 아티클
+      actions:
+        aria_label: Article actions
+      posted_html: Posted on %{date}
+      right_nav: Autor Detail
+      unpublished:
+        subtitle: Unpublished Article
+        edit: 수정하기

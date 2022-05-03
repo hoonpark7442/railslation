@@ -1,0 +1,8 @@
+---
+ko:
+  views:
+    editor:
+      create: 아티클 작성
+      close:
+        icon: Close
+        title: Close the editor

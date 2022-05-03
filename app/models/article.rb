@@ -31,6 +31,13 @@ class Article < ApplicationRecord
   	.where("published_at <= ?", Time.current)
   }
 
+  def published_timestamp
+    return "" unless published
+    return "" unless published_at
+
+    published_at.utc.in_time_zone("Seoul")
+  end
+
   private
 
   def evaluate_markdown
@@ -100,11 +107,11 @@ class Article < ApplicationRecord
 
   	self.cached_user_name = user_name
   	self.cached_user_username = user_username
-  	self.path = caculated_path.downcase
+  	self.path = calculated_path.downcase
   end
 
-  def caculated_path
-  	"#{user_username}/#{slug}"
+  def calculated_path
+  	"/#{user_username}/#{slug}"
   end
 
   def set_password
