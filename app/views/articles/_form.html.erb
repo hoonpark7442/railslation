@@ -1,7 +1,52 @@
+<% form_url = article.id ? "/articles/#{article.id}" : "/articles" %>
+<% form_method = article.id ? "PUT" : "POST" %>
+
+<style>
+  body {
+    padding-top: 0 !important;
+성 }
+
+  /* This weirdness below has a reason: https://github.com/forem/forem/pull/11701#issuecomment-737319289 */
+
+  .crayons-header,
+  .crayons-header * {
+    visibility: hidden;
+    position: absolute;
+    left: -9999em;
+    top: -9999em;
+    pointer-events: none;
+    opacity: 0;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+  }
+
+  .crayons-header .site-logo,
+  .crayons-header .site-logo * {
+    visibility: visible;
+    position: static;
+    pointer-events: auto;
+    opacity: 1;
+    clip: auto;
+    overflow: visible;
+  }
+
+  .crayons-footer {
+    display: none;
+  }
+
+  .wrapper {
+    overflow: unset;
+  }
+
+  #page-content-inner {
+    display: block;
+  }
+</style>
+
 <main id="main-content"
   data-article="<%= article.to_json(only: %i[id title cached_tag_list published body_markdown updated_at]) %>"
 >
-  <%= form_with(model: article, local: true, class: "crayons-article-form", id: "article-form") do |form| %>
+  <%= form_with(model: article, url: form_url, method: form_method, local: true, class: "crayons-article-form", id: "article-form") do |form| %>
     <% if article.errors.any? %>
       <div id="error_explanation">
         <h2><%= pluralize(article.errors.count, "error") %> prohibited this article from being saved:</h2>
@@ -13,6 +58,21 @@
         </ul>
       </div>
     <% end %>
+    <div class="crayons-article-form__header">
+      <span class="crayons-article-form__logo">
+        <h2>Railslation</h2>
+      </span>
+
+      <div class="crayons-field__label">
+        <span class="hidden s:inline-block mr-2"><%= t("views.editor.create") %></span>
+      </div>
+
+      <div class="crayons-article-form__close">
+        <a href="/" class="crayons-btn crayons-btn--ghost-dimmed crayons-btn--icon" title="<%= t("views.editor.close.title") %>">
+          <%= inline_svg_tag("x.svg", aria: true, class: "crayons-icon", title: t("views.editor.close.icon")) %>
+        </a>
+      </div>
+    </div>
 
     <div class="crayons-card crayons-article-form__content">
       <div data-testid="article-form__body" id="article-form__body" class="crayons-article-form__body drop-area text-padding">

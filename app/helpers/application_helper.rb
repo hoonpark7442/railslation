@@ -13,4 +13,27 @@ module ApplicationHelper
     Markdown.new(text, *options).to_html.html_safe
   end
 
+  def render_tag_list(tag)
+    safe_join([content_tag(:span, "#", class: "crayons-tag__prefix"), tag])
+  end
+
+  def view_class
+    if @story_show
+      "stories stories-show"
+    else
+      "#{controller_name} #{controller_name}-#{controller.action_name}"
+    end
+  end
+
+  def current_page
+    "#{controller_name}-#{controller.action_name}"
+  end
+
+  def collection_header(collection)
+    size_str = "#{collection.articles.published.size} 개의 시리즈"
+    body_str = collection.slug.present? ? "#{collection.slug} (#{size_str})" : size_str
+
+    body_str
+  end
+
 end

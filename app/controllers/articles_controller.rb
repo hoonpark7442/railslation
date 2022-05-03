@@ -1,5 +1,5 @@
 class ArticlesController < ApplicationController
-  before_action :set_article, only: [:show, :edit, :update, :destroy]
+  before_action :set_article, only: [:edit, :update, :destroy]
   
   def index
   end
@@ -13,6 +13,7 @@ class ArticlesController < ApplicationController
   end
 
   def edit
+    @user = @article.user
   end
 
   def create
@@ -22,8 +23,8 @@ class ArticlesController < ApplicationController
 
     respond_to do |format|
       if @article.persisted?
-        format.html { redirect_to @article, notice: 'article was successfully created.' }
-        format.json { render :show, status: :created, location: @article }
+        format.html { redirect_to @article.decorate.current_state_path, notice: 'article was successfully created.' }
+        format.json { render :show, status: :created, location: @article.decorate.current_state_path }
       else
         format.html { render :new }
         format.json { render json: @article.errors, status: :unprocessable_entity }
@@ -32,6 +33,19 @@ class ArticlesController < ApplicationController
   end
 
   def update
+    @user = @article.user || current_user
+
+    result = Articles::Updater.call(@user, @article, article_params)
+
+    respond_to do |format|
+      if result
+        format.html { redirect_to @article.decorate.current_state_path, notice: 'article was successfully updated.' }
+        format.json { render :show, status: :updated, location: @article.decorate.current_state_path }
+      else
+        format.html { render :new }
+        format.json { render json: @article.errors, status: :unprocessable_entity }
+      end
+    end
   end
 
   def destroy
@@ -40,11 +54,18 @@ class ArticlesController < ApplicationController
   private
   
   def set_article
-    @article = Article.find(params[:id])
+    # @article = Article.find(params[:id])
+    author = User.find_by(username: params[:username])
+    found_article = if author && params[:slug]
+                      author.articles.find_by(slug: params[:slug])
+                    else
+                      Article.find(params[:id])
+                    end
+    @article = found_article || not_found
   end
 
   # Only allow a list of trusted parameters through.
   def article_params
-    params.require(:article).permit(:title, :body_markdown)
+    params.require(:article).permit(:body_markdown)
   end
 end

@@ -18,6 +18,9 @@ class User < ApplicationRecord
 
   before_validation :set_username
 
+  def path
+    "/#{username}"
+  end
 
   def set_username
     self.username = username&.downcase

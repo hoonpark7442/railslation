@@ -1,0 +1,47 @@
+<% author = @article.user %>
+
+<div class="crayons-article-sticky grid gap-4 break-word" id="article-show-primary-sticky-nav">
+	<div class="crayons-card crayons-card--secondary branded-7 p-4 pt-0 gap-4 grid" style="border-top-color: #626997;">
+		<div class="-mt-4">
+			<a href="<%= author.path %>" class="flex">
+				<span class="crayons-avatar crayons-avatar--xl mr-2 shrink-0">
+					<img class="radius-full align-middle crayons-avatar__image" src="<%= Images::Profile::DEFAULT_LINK %>" alt="" loading="lazy" />
+				</span>
+				<span class="crayons-link crayons-subtitle-2 mt-5"><%= author.name %></span>
+			</a>
+		</div>
+
+		<div class="color-base-70" style="font-size: 14px;">
+			안녕하세요 🙋‍♂️ <br>
+			3년차 루비온레일즈 주니어 개발자 박훈입니다.<br>
+			🔥 성장에 집착합니다. 🧶 문제를 해결합니다.<br>
+			📈 성장을 위해, 🛠 1인 개발자의 한계를 해결하기 위해<br>
+			오픈소스를 분석해가며 웹사이트 개발을 하고 있습니다.<br>
+		</div>
+
+		<div class="user-metadata-details">
+			<ul class="user-metadata-details-inner">
+				<li>
+					<div class="key">Email</div>
+					<div class="value">
+						<a href="mailto: hoonpark7442@gmail.com" class="text-secondary" style="color: #808080;"><u>hoonpark7442@gmail.com</u></a>
+					</div>
+				</li>
+				<li>
+					<div class="key">Blog</div>
+					<div class="value">
+						<a href="https://sirogramming.tistory.com" style="color: #808080;"><u>티스토리 블로그(TIL)</u></a>
+					</div>
+				</li>
+				<li>
+					<div class="key">Github</div>
+					<div class="value">
+						<a href="https://github.com/hoonpark7442" style="color: #808080;"><u>깃헙보러가기</u></a>
+					</div>
+				</li>
+			</ul>
+		</div>
+	</div>
+
+	<!-- 유저의 다른글 보기 기능은 백로그로 남겨두고 나중에 구현 예정 -->
+</div>

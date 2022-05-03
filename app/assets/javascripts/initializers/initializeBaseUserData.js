@@ -1,6 +1,6 @@
 function setCurrentUserToNavBar(user) {
   const userNavLink = document.getElementById('first-nav-link');
-  userNavLink.href = `/${user.name}`;
+  userNavLink.href = `/${user.username}`;
   userNavLink.getElementsByTagName('span')[0].textContent = user.name;
   userNavLink.getElementsByTagName(
     'small',
