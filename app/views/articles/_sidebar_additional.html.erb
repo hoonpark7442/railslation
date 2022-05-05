@@ -1,0 +1,22 @@
+<div id="sidebar-wrapper-right" class="sidebar-wrapper sidebar-wrapper-right crayons-layout__sidebar-right">
+	<aside class="side-bar sidebar-additional showing grid gap-4" id="sidebar-additional">
+		<% cache(adjusted_cache_key("main-article-right-sidebar-discussions"), expires_in: 5.minutes) do %>
+			<section class="crayons-card crayons-card--secondary">
+	      <header class="crayons-card__header">
+	        <h3 class="crayons-subtitle-2"><%= t("views.main.side.listings.heading") %></h3>
+	        <div class="crayons-card__actions">
+	          <a href="/listings" class="crayons-link--branded fw-medium fs-s"><%= t("views.main.side.listings.all") %></a>
+	        </div>
+	      </header>
+
+	      <div>
+	        
+          <a class="crayons-link crayons-link--contentful" href="/">
+            <div>준비중</div>
+            <div class="crayons-link__secondary">jobs</div>
+          </a>
+	      </div>
+	    </section>
+	  <% end %>
+	</aside>
+</div>

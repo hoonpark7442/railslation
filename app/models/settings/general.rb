@@ -15,8 +15,8 @@ module Settings
     setting :site_name, type: :string
 
     # Feed
-    # setting :feed_pinned_article_id, type: :integer, validates: {
-    #   existing_published_article_id: true, allow_nil: true
-    # }
+    setting :feed_pinned_article_id, type: :integer, validates: {
+      existing_published_article_id: true, allow_nil: true
+    }
   end
 end

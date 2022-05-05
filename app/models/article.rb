@@ -1,4 +1,6 @@
 class Article < ApplicationRecord
+  DEFAULT_FEED_PAGINATION_WINDOW_SIZE = 50
+
 	acts_as_taggable_on :tags
 
 	belongs_to :user
@@ -31,11 +33,26 @@ class Article < ApplicationRecord
   	.where("published_at <= ?", Time.current)
   }
 
+  scope :feed_column_select, -> {
+    select(:id, :cached_user, :cached_tag_list, :description, :path, :published,
+           :published_at, :slug, :title, :user_id, :updated_at, :reading_time, :cached_user_username)
+  }
+
   def published_timestamp
     return "" unless published
     return "" unless published_at
 
     published_at.utc.in_time_zone("Seoul")
+  end
+
+  def readable_publish_date
+    relevant_date = published_timestamp
+
+    if relevant_date && relevant_date.year == Time.current.year
+      relevant_date&.strftime("%-m월 %-d일")
+    else
+      relevant_date&.strftime("%y년 %-m월 %-d일")
+    end
   end
 
   private

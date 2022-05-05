@@ -11,3 +11,6 @@ ko:
       unpublished:
         subtitle: Unpublished Article
         edit: 수정하기
+      reading_time:
+        one: "1 min read"
+        other: "%{count} min read"

@@ -17,3 +17,9 @@ ko:
         settings: Settings
       create_post: 포스트 작성
       signout: 로그아웃
+      home: Home
+      officil: Official Site
+      side:
+        listings:
+          heading: 채용공고
+          all: 더보기

@@ -27,4 +27,8 @@ class ArticleDecorator < ApplicationDecorator
   def long_markdown?
     body_markdown.present? && body_markdown.size > LONG_MARKDOWN_THRESHOLD
   end
+
+  def published_at_int
+    published_at.to_i
+  end
 end

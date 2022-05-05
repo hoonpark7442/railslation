@@ -5,3 +5,5 @@ ko:
       icon:
         aria_label: Search
         title: 검색
+    pins:
+      article: Pinned
