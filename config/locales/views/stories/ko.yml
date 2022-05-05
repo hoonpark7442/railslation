@@ -1,0 +1,9 @@
+---
+ko:
+  views:
+    stories:
+      heading: Articles
+      sort:
+        aria_label: View posts by
+        article_feed: Article Feed
+        rss_feed: RSS Feed

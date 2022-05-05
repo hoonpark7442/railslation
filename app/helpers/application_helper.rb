@@ -36,4 +36,7 @@ module ApplicationHelper
     body_str
   end
 
+  def adjusted_cache_key(path)
+    "#{path}-#{Time.current.to_s}"
+  end
 end

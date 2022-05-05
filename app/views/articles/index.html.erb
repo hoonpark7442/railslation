@@ -1,2 +1,39 @@
-<h1>Articles#index</h1>
-<p>Find me in app/views/articles/index.html.erb</p>
+<%= content_for :page_meta do %>
+	<meta property="og:type" content="website" />
+	<meta property="og:title" content="railslation" />
+<% end %>
+
+<% cache(adjusted_cache_key("main-stories-index-#{params}-#{user_signed_in?}"), expires_in: 90.seconds) do %>
+	<div class="crayons-layout crayons-layout--3-cols crayons-layout--3-cols--drop-right-left" id="index-container" 
+			 data-feed="base-feed"
+	>
+		<%= render "articles/sidebar" %>
+
+		<!-- begin feed menu bar -->
+		<main class="articles-list crayons-layout__content" id="main-content">
+			<header class="p-2 px-3 m:p-0 m:px-0 m:mb-2 fs-l">
+				<h1 class="screen-reader-only"><%= t("views.stories.heading") %></h1>
+				<nav class="-mx-3 m:mx-0 s:flex items-center justify-between" aria-label="<%= t("views.stories.sort.aria_label") %>">
+					<ul class="crayons-navigation crayons-navigation--horizontal">
+						<li>
+							<%# class에 "crayons-navigation__item--current" if feed_type_check("rss_feed") 이거 추가해야 한다. aria-current="page" 이것도 추가 필요 %>
+							<a data-text="<%= t("views.stories.sort.article_feed") %>" href="/" class="crayons-navigation__item crayons-navigation__item--current" aria-current="page">
+								<%= t("views.stories.sort.article_feed") %>
+							</a>
+						</li>
+						<!-- <li>
+							<%# class에 "crayons-navigation__item--current" if feed_type_check("rss_feed") 이거 추가해야 한다. aria-current="page" 이것도 추가 필요 %>
+							<a data-text="<%#= t("views.stories.sort.rss_feed") %>" href="/" class="crayons-navigation__item crayons-navigation__item--current" aria-current="page">
+								<%#= t("views.stories.sort.rss_feed") %>
+							</a>
+						</li> -->
+					</ul>
+				</nav>
+			</header>
+
+			<%= render "stories/main_stories_feed" %>
+		</main>
+
+		<%= render "articles/sidebar_additional" %>
+	</div>
+<% end %>

@@ -69,6 +69,9 @@ gem "aws-sdk-s3", require: false
 # add role
 gem 'rolify', '~> 6.0'
 
+# pagination
+gem 'kaminari', '~> 1.2', '>= 1.2.2' # A Scope & Engine based, clean, powerful, customizable and sophisticated paginator
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]

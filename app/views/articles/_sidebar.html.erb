@@ -1,0 +1,28 @@
+<div id="sidebar-wrapper-left" class="sidebar-wrapper sidebar-wrapper-left crayons-layout__sidebar-left">
+	<aside class="side-bar" aria-label="Primary sidebar">
+		<% cache(adjusted_cache_key("main-sidebar-nav-#{user_signed_in?}"), expires_in: 1.hours) do %>
+			<%= render "shared/site_description" %>
+			<nav class="mb-6" id="main-navigation" aria-label="railslation">
+				<ul class="default-navigation-links sidebar-navigation-links spec-sidebar-navigation-links">
+					<li>
+						<a href="<%= root_path %>" class="crayons-link crayons-link--block">
+							<%= inline_svg_tag("nav/home.svg", class: "crayons-icon crayons-icon--default", aria_hidden: true) %>
+							<%= t("views.main.home") %>
+						</a>
+					</li>
+					<li>
+						<a href="<%= root_path %>" class="sidebar-navigation-link crayons-link crayons-link--block">
+							<%= inline_svg_tag("nav/rails.svg", class: "crayons-icon crayons-icon--default", aria_hidden: true) %>
+							<%= t("views.main.official") %>
+						</a>
+					</li>
+				</ul>
+			</nav>
+		<% end %>
+	</aside>
+</div>
+
+<!-- 레일즈 공식 사이트
+채용공고
+오픈소스 깃헙
+레일즈 강의 -->

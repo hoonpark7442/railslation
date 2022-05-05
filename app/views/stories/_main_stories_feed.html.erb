@@ -1,0 +1,16 @@
+<% if @pinned_article %>
+	<%= render partial: "articles/single_story", locals: {story: @pinned_article, pinned: true} %>
+<% end %>
+
+<div class="substories" id="substories">
+	<% if @stories.any? %>
+		<% @stories.each do |story| %>
+			<% next if story.id == @pinned_article&.id %>
+			<%= render partial: "articles/single_story", locals: {story: story, pinned: false} %>
+		<% end %>
+		<% if @stories.size > 1 %>
+      <div class="placeholder-div"></div>
+    <% end %>
+    <div class="single-article-small-pic" id="article-index-hidden-div" style="display:none"></div>
+	<% end %>
+</div>
