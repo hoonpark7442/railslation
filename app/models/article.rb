@@ -38,6 +38,17 @@ class Article < ApplicationRecord
            :published_at, :slug, :title, :user_id, :updated_at, :reading_time, :cached_user_username)
   }
 
+  trigger.name(:update_reading_list_document).before(:insert, :update).for_each(:row) do
+    <<~SQL
+      NEW.reading_list_document := 
+        setweight(to_tsvector('simple'::regconfig, unaccent(coalesce(NEW.title, ''))), 'A') ||
+        setweight(to_tsvector('simple'::regconfig, unaccent(coalesce(NEW.cached_tag_list, ''))), 'B') ||
+        setweight(to_tsvector('simple'::regconfig, unaccent(coalesce(NEW.body_markdown, ''))), 'C') ||
+        setweight(to_tsvector('simple'::regconfig, unaccent(coalesce(NEW.cached_user_name, ''))), 'D') ||
+        setweight(to_tsvector('simple'::regconfig, unaccent(coalesce(NEW.cached_user_username, ''))), 'D');
+    SQL
+  end
+
   def published_timestamp
     return "" unless published
     return "" unless published_at
