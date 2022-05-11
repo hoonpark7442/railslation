@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_05_02_033736) do
+ActiveRecord::Schema.define(version: 2022_05_07_160224) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_trgm"
@@ -200,4 +200,19 @@ ActiveRecord::Schema.define(version: 2022_05_02_033736) do
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "collections", "users"
   add_foreign_key "taggings", "tags"
+  create_trigger("update_reading_list_document", :generated => true, :compatibility => 1).
+      on("articles").
+      name("update_reading_list_document").
+      before(:insert, :update).
+      for_each(:row) do
+    <<-SQL_ACTIONS
+NEW.reading_list_document := 
+  setweight(to_tsvector('simple'::regconfig, unaccent(coalesce(NEW.title, ''))), 'A') ||
+  setweight(to_tsvector('simple'::regconfig, unaccent(coalesce(NEW.cached_tag_list, ''))), 'B') ||
+  setweight(to_tsvector('simple'::regconfig, unaccent(coalesce(NEW.body_markdown, ''))), 'C') ||
+  setweight(to_tsvector('simple'::regconfig, unaccent(coalesce(NEW.cached_user_name, ''))), 'D') ||
+  setweight(to_tsvector('simple'::regconfig, unaccent(coalesce(NEW.cached_user_username, ''))), 'D');
+    SQL_ACTIONS
+  end
+
 end

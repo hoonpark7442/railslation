@@ -1,9 +1,13 @@
 ko:
   views:
     search:
+      heading: "%{query}에 대한 검색 결과"
       placeholder: 검색
       icon:
         aria_label: Search
         title: 검색
+      nav:
+        articles: Article
+        rss: Rss
     pins:
       article: Pinned
