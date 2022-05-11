@@ -1,0 +1,54 @@
+<article class="crayons-story" data-article-path="<%= story.path %>" id="<%= story.id %>" data-content-user-id="<%= story.user_id %>">
+	<a href="<%= story.path %>" aria-labelledby="article-link-<%= story.id %>" class="crayons-story__hidden-navigation-link">
+		<%= story.title %>
+	</a>
+	<div role="presentation">
+		<div class="crayons-story__body">
+			<div class="crayons-story__top">
+				<div class="crayons-story__meta">
+					<div class="crayons-story__autor-pic">
+						<a href="/<%= story.cached_user_username %>" class="crayons-avatar crayons-avatar--l">
+							<img class="crayons-avatar__image" src="<%= Images::Profile::DEFAULT_LINK %>" alt="<%= story.cached_user_username %> profile" loading="lazy" />
+						</a>
+					</div>
+					<div class="ml-2">
+						<div>
+							<a href="/<%= story.cached_user_username %>" class="crayons-story__secondary fw-medium m:hidden">
+								<%= story.cached_user_username %>
+							</a>
+							<div class="relative mb-4 s:mb-0 fw-medium hidden m:inline-block">
+								<div aria-controls="story-author-preview-content-<%= story.id %>" class="fs-s p-1 -ml-1 -my-2">
+									<%= story.cached_user_username %>
+								</div>
+							</div>
+						</div>
+						<a href="<%= story.path %>" class="crayons-story__tertiary fs-xs">
+							<time datetime="<%= story.published_timestamp %>"><%= story.readable_publish_date %></time><span class="time-ago-indicator-initial-placeholder" data-seconds="<%= story.published_at_int %>"></span>
+						</a>
+					</div>
+				</div>
+			</div>
+
+			<div class="crayons-story__indention">
+				<h3 class="crayons-story__title">
+					<a href="<%= story.path %>" id="article-link-<%= story.id %>">
+						<%= story.title %>
+					</a>
+				</h3>
+				<div class="crayons-story__tags">
+					<% story.cached_tag_list_array.each do |tag| %>
+						<div class="crayons-tag"><%= render_tag_list(tag) %></div>
+					<% end %>
+				</div>
+				<div class="crayons-story__bottom">
+					<div class="crayons-story__save">
+						<small class="crayons-story__tertiary fs-xs mr-2">
+							<%= t("views.articles.reading_time", count: story.reading_time < 1 ? 1 : story.reading_time) %>
+						</small>
+
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</article>

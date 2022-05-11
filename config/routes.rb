@@ -20,6 +20,8 @@ Rails.application.routes.draw do
 
   post "/image_uploads", to: "article_images#create"
 
+  get '/search/feed_content', to: "search#feed_content", as: :search
+
   get "/:username/:slug/edit", to: "articles#edit"
   get "/:username/:slug", to: "stories#show"
 end

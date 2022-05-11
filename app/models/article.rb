@@ -1,4 +1,6 @@
 class Article < ApplicationRecord
+  include PgSearch::Model
+
   DEFAULT_FEED_PAGINATION_WINDOW_SIZE = 50
 
 	acts_as_taggable_on :tags
@@ -38,6 +40,7 @@ class Article < ApplicationRecord
            :published_at, :slug, :title, :user_id, :updated_at, :reading_time, :cached_user_username)
   }
 
+  # postgres trigger 기능을 사용하여 vector 컬럼에 데이터 삽입
   trigger.name(:update_reading_list_document).before(:insert, :update).for_each(:row) do
     <<~SQL
       NEW.reading_list_document := 
@@ -48,6 +51,16 @@ class Article < ApplicationRecord
         setweight(to_tsvector('simple'::regconfig, unaccent(coalesce(NEW.cached_user_username, ''))), 'D');
     SQL
   end
+
+  pg_search_scope :search_articles,
+                  against: :reading_list_document,
+                  using: {
+                    tsearch: { 
+                      prefix: true,
+                      tsvector_column: :reading_list_document
+                    }
+                  },
+                  ignoring: :accents
 
   def published_timestamp
     return "" unless published

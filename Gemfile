@@ -11,6 +11,7 @@ gem 'pg', '~> 1.1'
 # search
 gem 'pg_search', '~> 2.3', '>= 2.3.6'
 gem 'hairtrigger', '~> 0.2.25'
+gem 'pg_search', '~> 2.3', '>= 2.3.6'
 
 # Use Puma as the app server
 gem 'puma', '~> 5.0'
