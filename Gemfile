@@ -78,6 +78,11 @@ gem 'rolify', '~> 6.0'
 # pagination
 gem 'kaminari', '~> 1.2', '>= 1.2.2' # A Scope & Engine based, clean, powerful, customizable and sophisticated paginator
 
+# background job
+gem 'sidekiq', '~> 6.4', '>= 6.4.2' # Sidekiq is used to process background jobs with the help of Redis
+gem 'sidekiq-cron', '~> 1.4' # Allows execution of scheduled cron jobs as specific times
+gem 'redis', '~> 4.6' # Redis ruby client
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]

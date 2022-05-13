@@ -23,6 +23,8 @@ module Railslation
       g.fixture_replacement :factory_bot, dir: 'spec/factories'
     end
 
+    config.active_job.queue_adapter = :sidekiq
+
     # Configuration for the application, engines, and railties goes here.
     #
     # These settings can be overridden in specific environments using the files
