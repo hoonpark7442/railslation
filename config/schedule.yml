@@ -1,0 +1,3 @@
+feeds_import:
+  cron: "20 * * * *"
+  class: "Feeds::ImportFeedsWorker"
