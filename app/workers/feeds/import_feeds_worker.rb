@@ -4,19 +4,15 @@ module Feeds
 
     sidekiq_options queue: :medium_priority, retry: 10
 
-    def perform(user_ids = [], earlier_than = nil)
-      puts "hoon sidekiq worker"
-      # if user_ids.present?
-      #   users = User.where(id: user_ids)
-      #   # we assume that forcing a single import should not take into account
-      #   # the last time a feed was fetched at
-      #   earlier_than = nil
+    def perform(author_ids = [])
+      # if author_ids.present?
+      #   authors = Author.where(id: author_ids)
       # else
-      #   users = nil
-      #   earlier_than ||= 4.hours.ago
+      #   authors = nil
       # end
 
-      # ::Feeds::Import.call(users: users, earlier_than: earlier_than)
+      # ::Feeds::Import.call(authors: authors)
+      ::Feeds::Import.call
     end
   end
 end
