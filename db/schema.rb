@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_05_07_160224) do
+ActiveRecord::Schema.define(version: 2022_05_16_060913) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_trgm"
@@ -83,6 +83,7 @@ ActiveRecord::Schema.define(version: 2022_05_07_160224) do
     t.datetime "updated_at", precision: 6, null: false
     t.integer "reading_time", default: 0
     t.string "cached_user_username"
+    t.bigint "rss_feed_id"
     t.index "user_id, title, digest(body_markdown, 'sha512'::text)", name: "index_articles_on_user_id_and_title_and_digest_body_markdown", unique: true
     t.index ["cached_tag_list"], name: "index_articles_on_cached_tag_list", opclass: :gin_trgm_ops, using: :gin
     t.index ["collection_id"], name: "index_articles_on_collection_id"
@@ -93,7 +94,22 @@ ActiveRecord::Schema.define(version: 2022_05_07_160224) do
     t.index ["public_reactions_count"], name: "index_articles_on_public_reactions_count", order: :desc
     t.index ["published"], name: "index_articles_on_published"
     t.index ["reading_list_document"], name: "index_articles_on_reading_list_document", using: :gin
+    t.index ["rss_feed_id"], name: "index_articles_on_rss_feed_id"
     t.index ["slug", "user_id"], name: "index_articles_on_slug_and_user_id", unique: true
+  end
+
+  create_table "authors", force: :cascade do |t|
+    t.string "name"
+    t.string "description"
+    t.integer "author_type", default: 1, null: false
+    t.string "website_url", null: false
+    t.string "feed_url", null: false
+    t.integer "nationality", default: 1, null: false
+    t.datetime "feed_fetched_at", default: "2022-04-23 17:00:00"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["feed_url"], name: "index_authors_on_feed_url", unique: true
+    t.index ["website_url"], name: "index_authors_on_website_url", unique: true
   end
 
   create_table "collections", force: :cascade do |t|
@@ -113,6 +129,21 @@ ActiveRecord::Schema.define(version: 2022_05_07_160224) do
     t.datetime "updated_at", precision: 6, null: false
     t.index ["name", "resource_type", "resource_id"], name: "index_roles_on_name_and_resource_type_and_resource_id"
     t.index ["resource_type", "resource_id"], name: "index_roles_on_resource"
+  end
+
+  create_table "rss_feeds", force: :cascade do |t|
+    t.bigint "author_id", null: false
+    t.string "title", null: false
+    t.string "feed_source_url", null: false
+    t.datetime "published_at"
+    t.string "cached_tag_list"
+    t.boolean "translated", default: false, null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index "((to_tsvector('simple'::regconfig, COALESCE((feed_source_url)::text, ''::text)) || to_tsvector('simple'::regconfig, COALESCE((title)::text, ''::text))))", name: "index_rss_feeds_on_search_fields_as_tsvector", using: :gin
+    t.index ["author_id"], name: "index_rss_feeds_on_author_id"
+    t.index ["cached_tag_list"], name: "index_rss_feeds_on_cached_tag_list", opclass: :gin_trgm_ops, using: :gin
+    t.index ["title"], name: "index_rss_feeds_on_title"
   end
 
   create_table "settings_authentications", force: :cascade do |t|
@@ -198,7 +229,11 @@ ActiveRecord::Schema.define(version: 2022_05_07_160224) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "articles", "collections", on_delete: :nullify
+  add_foreign_key "articles", "rss_feeds", on_delete: :nullify
+  add_foreign_key "articles", "users", on_delete: :cascade
   add_foreign_key "collections", "users"
+  add_foreign_key "rss_feeds", "authors", on_delete: :cascade
   add_foreign_key "taggings", "tags"
   create_trigger("update_reading_list_document", :generated => true, :compatibility => 1).
       on("articles").

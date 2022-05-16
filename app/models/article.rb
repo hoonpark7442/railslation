@@ -7,6 +7,7 @@ class Article < ApplicationRecord
 
 	belongs_to :user
 	belongs_to :collection, optional: true
+  belongs_to :rss_feed, optional: true
 
 	delegate :name, to: :user, prefix: true
 	delegate :username, to: :user, prefix: true
