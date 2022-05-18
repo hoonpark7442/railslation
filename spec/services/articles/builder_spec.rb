@@ -7,7 +7,7 @@ RSpec.describe Articles::Builder, type: :service do
     let(:user) { create(:user) }
     let(:correct_attributes) do
       body_markdown = "---\ntitle: \npublished: false\ndescription: \ntags: " \
-             "\nseries: \n---\n\n"
+             "\nseries: \ntranslation: \n---\n\n"
 
       {
         body_markdown: body_markdown,
