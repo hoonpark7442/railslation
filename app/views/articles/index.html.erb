@@ -17,16 +17,16 @@
 					<ul class="crayons-navigation crayons-navigation--horizontal">
 						<li>
 							<%# class에 "crayons-navigation__item--current" if feed_type_check("rss_feed") 이거 추가해야 한다. aria-current="page" 이것도 추가 필요 %>
-							<a data-text="<%= t("views.stories.sort.article_feed") %>" href="/" class="crayons-navigation__item crayons-navigation__item--current" aria-current="page">
+							<a data-text="<%= t("views.stories.sort.article_feed") %>" href="/" class="crayons-navigation__item <%= "crayons-navigation__item--current" if %w[rss_feed].exclude?(params[:feed_type]) %>" <%= %w[rss_feed].exclude?(params[:feed_type]) ? ' aria-current="page"'.html_safe : "" %>>
 								<%= t("views.stories.sort.article_feed") %>
 							</a>
 						</li>
-						<!-- <li>
+						<li>
 							<%# class에 "crayons-navigation__item--current" if feed_type_check("rss_feed") 이거 추가해야 한다. aria-current="page" 이것도 추가 필요 %>
-							<a data-text="<%#= t("views.stories.sort.rss_feed") %>" href="/" class="crayons-navigation__item crayons-navigation__item--current" aria-current="page">
-								<%#= t("views.stories.sort.rss_feed") %>
+							<a data-text="<%= t("views.stories.sort.rss_feed") %>" href="/rss_feed" class="crayons-navigation__item <%= "crayons-navigation__item--current" if params[:feed_type] == 'rss_feed' %>"<%= params[:feed_type] == 'rss_feed' ? ' aria-current="page"'.html_safe : "" %>>
+								<%= t("views.stories.sort.rss_feed") %>
 							</a>
-						</li> -->
+						</li>
 					</ul>
 				</nav>
 			</header>

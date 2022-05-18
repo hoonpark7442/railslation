@@ -1,4 +1,5 @@
 module ApplicationHelper
+  ENOUGH_RSS_FEED_THRESHOLD = 100
 
 	def site_name
     @site_name ||= Settings::General.site_name
@@ -38,5 +39,13 @@ module ApplicationHelper
 
   def adjusted_cache_key(path)
     "#{path}-#{Time.current.to_s}"
+  end
+
+  def estimated_rss_feeds_count
+    RssFeed.estimated_count
+  end
+
+  def display_rss_feed_count?
+    estimated_rss_feeds_count > ENOUGH_RSS_FEED_THRESHOLD
   end
 end

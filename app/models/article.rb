@@ -29,7 +29,9 @@ class Article < ApplicationRecord
   before_save :set_caches
   before_create :set_password
 
-  after_commit :touch_collection
+  after_save :update_translated_rss_feed, if: proc{ |article| article.rss_feed.present? }
+
+  after_commit :touch_collection, on: %i[create update]
 
   scope :published, -> {
   	where(published: true)
@@ -38,7 +40,7 @@ class Article < ApplicationRecord
 
   scope :feed_column_select, -> {
     select(:id, :cached_user, :cached_tag_list, :description, :path, :published,
-           :published_at, :slug, :title, :user_id, :updated_at, :reading_time, :cached_user_username)
+           :published_at, :slug, :title, :user_id, :updated_at, :reading_time, :cached_user_username, :rss_feed_id)
   }
 
   # postgres trigger 기능을 사용하여 vector 컬럼에 데이터 삽입
@@ -108,6 +110,7 @@ class Article < ApplicationRecord
   	self.published_at = Time.current if published
   	self.description = front_matter["description"] if front_matter["description"].present?
   	self.collection_id = Collection.find_series(front_matter["series"], user).id if front_matter["series"].present?
+    self.rss_feed_id = RssFeed.find_rss_feed(front_matter["translation"])&.id if front_matter["translation"].present?
   end
 
   def set_tag_list(tags)
@@ -164,5 +167,10 @@ class Article < ApplicationRecord
 
   def touch_collection
   	collection.touch if collection && previous_changes.present?
+  end
+
+  # TODO: service로 옮기기
+  def update_translated_rss_feed
+    rss_feed.update(translated: true)
   end
 end

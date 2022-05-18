@@ -64,6 +64,13 @@
             <%= render "articles/collection", rendered_article: @article, collection: @collection, articles: @collection_articles %>
           <% end %>
 
+          <% if @rss_feed %>
+            <h3>
+              <span>원문 링크: </span>
+              <a href="<%= @rss_feed.feed_source_url %>" class="crayons-link fw-bold" target="_blank"><%= @rss_feed.feed_source_url %></a>
+            </h3>
+          <% end %>
+
           <div class="crayons-article__body text-styles spec__body" data-article-id="<%= @article.id %>" id="article-body">
             <%= @article.processed_html.html_safe %>
           </div>

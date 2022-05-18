@@ -7,3 +7,7 @@ ko:
         aria_label: View posts by
         article_feed: Article Feed
         rss_feed: RSS Feed
+      rss_feed:
+        header: 오늘의 RSS Feed
+        view_more_text: "%{maybe_size}RSS Feed 더 보러가기"
+        prefix_with_size: "약 %{num}개의 "
