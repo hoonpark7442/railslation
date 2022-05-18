@@ -2,11 +2,19 @@
 	<%= render partial: "articles/single_story", locals: {story: @pinned_article, pinned: true} %>
 <% end %>
 
+<% if @latest_rss_feeds && @latest_rss_feeds.size > 0 %>
+	<%= render partial: "articles/latest_rss_feeds", locals: {feeds: @latest_rss_feeds} %>
+<% end %>
+
 <div class="substories" id="substories">
 	<% if @stories.any? %>
 		<% @stories.each do |story| %>
 			<% next if story.id == @pinned_article&.id %>
-			<%= render partial: "articles/single_story", locals: {story: story, pinned: false} %>
+			<% if params[:feed_type] == 'rss_feed' %>
+				<%= render partial: "rss_feeds/single_story_for_rss", locals: {story: story} %>
+			<% else %>
+				<%= render partial: "articles/single_story", locals: {story: story, pinned: false} %>
+			<% end %>
 		<% end %>
 		<% if @stories.size > 1 %>
       <div class="placeholder-div"></div>

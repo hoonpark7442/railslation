@@ -110,3 +110,37 @@ a {
 #page-content-inner {
   background: var(--body-bg); 
 }
+
+.float-right {
+  float: right;
+}
+
+.inline-block {
+  display: inline;
+}
+
+.custom-top {
+  top: -8px;
+}
+
+.rss-feed-custom__bottom {
+  font-weight: var(--fw-bold);
+  font-size: var(--fs-s);
+  color: var(--card-color-tertiary);
+  text-align: center;
+
+  a {
+      color: inherit;
+      display: block;
+
+      &:hover {
+        color: var(--link-color-hover);
+      }
+    }
+}
+
+.svg-custom-icon {
+  height: 20px;
+  width: 20px;
+  vertical-align: bottom;
+}

@@ -31,4 +31,8 @@ class ArticleDecorator < ApplicationDecorator
   def published_at_int
     published_at.to_i
   end
+
+  def translated_article?
+    rss_feed_id.present?
+  end
 end

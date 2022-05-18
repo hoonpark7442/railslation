@@ -18,7 +18,7 @@ module Articles
 
 		def build_article
 			body_markdown = "---\ntitle: \npublished: false\ndescription: " \
-             "\ntags: \nseries: \n---\n\n"
+             "\ntags: \nseries: \ntranslation: \n---\n\n"
 
       Article.new(
       	body_markdown: body_markdown,

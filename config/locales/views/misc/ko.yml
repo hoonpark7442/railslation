@@ -11,3 +11,6 @@ ko:
         rss: Rss
     pins:
       article: Pinned
+    translation:
+      article: 번역글
+      rss_feed: 번역보기

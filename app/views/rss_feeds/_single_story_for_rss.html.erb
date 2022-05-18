@@ -1,0 +1,60 @@
+<div class="crayons-story" data-content-author-id="<%= story.author_id %>">
+	<a href="<%= story.feed_source_url %>" target="_blank" aria-labelledby="rss-feed-link-<%= story.id %>" class="crayons-story__hidden-navigation-link">
+		<%= story.title %>
+	</a>
+
+	<div class="crayons-story__body">
+		<div class="crayons-story__top">
+			<div class="crayons-story__meta">
+				<div class="crayons-story__autor-pic">
+					<a href="<%= root_path %>" class="crayons-avatar crayons-avatar--l">
+						<img class="crayons-avatar__image" alt="" id="nav-profile-image" />
+					</a>
+				</div>
+				<div class="ml-2">
+					<div>
+						<a href="<%= root_path %>" class="crayons-story__secondary fw-medium m:hidden">
+							<%= story.cached_author_name %>
+						</a>
+						<div class="relative mb-4 s:mb-0 fw-medium hidden m:inline-block">
+							<div aria-controls="story-author-preview-content-<%= story.id %>" class="fs-s p-1 -ml-1 -my-2">
+								<%= story.cached_author_name %>
+							</div>
+						</div>
+					</div>
+					<a href="<%= story.feed_source_url %>" target="_blank" class="crayons-story__tertiary fs-xs">
+						<time datetime="<%= story.published_timestamp %>"><%= story.readable_publish_date %></time><span class="time-ago-indicator-initial-placeholder" data-seconds="<%= story.published_at_int %>"></span>
+					</a>
+				</div>
+			</div>
+
+			<% if story.translated? %>
+				<a href="<%= story.translated_article.path %>" class="crayons-story__tertiary fw-bold">
+					<%= inline_svg_tag("blue-check-mark.svg", alt: "", aria_hidden: true, class: "mr-1 align-text-bottom svg-custom-icon") %>
+					<%= t("views.translation.rss_feed") %>
+				</a>
+			<% end %>
+		</div>
+
+		<div class="crayons-story__indention">
+			<h2 class="crayons-story__title">
+				<a href="<%= story.feed_source_url %>" target="_blank" id="rss-feed-link-<%= story.id %>">
+					<%= story.title %>
+				</a>
+			</h2>
+			<div class="crayons-story__tags">
+				<% story.cached_tag_list_array.each do |tag| %>
+					<div class="crayons-tag"><%= render_tag_list(tag) %></div>
+				<% end %>
+			</div>
+			<div class="crayons-story__bottom">
+				<!-- <div class="crayons-story__save">
+					<small class="crayons-story__tertiary fs-xs mr-2">
+						<%#= t("views.rss_feeds.reading_time", count: story.reading_time < 1 ? 1 : story.reading_time) %>
+					</small>
+
+				</div> -->
+			</div>
+		</div>
+	</div>
+</div>

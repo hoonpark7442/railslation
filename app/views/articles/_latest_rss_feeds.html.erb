@@ -1,0 +1,46 @@
+<div class="crayons-story">
+	<div class="crayons-story__body">
+		<h3 class="crayons-story__headline">
+			<span><%= t("views.stories.rss_feed.header") %></span>
+			<!-- <a href="/rss_feed" style="display: inline;"><%#= t("views.stories.rss_feed.header") %></a> -->
+		</h3>
+
+		<% feeds.each do |feed| %>
+			<div data-testid="rss-feed" class="crayons-podcast-episode">
+				<a href="<%= feed.feed_source_url %>" target="_blank" class="crayons-podcast-episode__cover crayons-avatar">
+					<img class="crayons-avatar__image" alt="" id="nav-profile-image" style="background-color: rgba(255, 255, 128, .5);" />
+				</a>
+
+				<div class="w-100">
+					<p class="crayons-podcast-episode__author">
+						<%= feed.cached_author_name %>
+					</p>
+					<h3 class="crayons-podcast-episode__title mb-0 inline-block">
+						<a href="<%= feed.feed_source_url %>" target="_blank" class="inline-block">
+							<%= feed.title.truncate(30, omission: "...", separator: " ") %>
+						</a>
+					</h3>
+					<% if feed.translated %>
+						<a href="<%= feed.translated_article.path %>" class="crayons-story__tertiary fw-bold w-max float-right mb-0 custom-top">
+							<%= t("views.translation.rss_feed") %>
+						</a>
+	      	<% end %>
+				</div>
+			</div>
+		<% end %>
+
+		<div class="rss-feed-custom__bottom mb-2">
+			<a href="/rss_feed">
+	    	<span>
+	    		<%= t("views.stories.rss_feed.view_more_text", 
+	    					maybe_size: display_rss_feed_count? ? t("views.stories.rss_feed.prefix_with_size", num: number_with_delimiter(estimated_rss_feeds_count)) : "") %>
+	    	</span>
+	    	<%= inline_svg_tag("arrow_right.svg", class: "svg-custom-icon crayons-icon--default", aria_hidden: true) %>
+	  	</a>
+		</div>
+
+	</div>
+
+	
+	
+</div>

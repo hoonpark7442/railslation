@@ -32,7 +32,7 @@ module Feeds
 		def get_tags
 			categories.first(4).map do |tag|
 				tag.delete(" ")
-			end.join(",")
+			end.join(", ")
 		end
 	end
 end

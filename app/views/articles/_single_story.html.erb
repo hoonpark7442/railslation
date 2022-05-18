@@ -32,7 +32,12 @@
 				<div class="pinned color-accent-brand fw-bold" data-testid="pinned-article">
 					<%= inline_svg_tag("pin.svg", alt: "", aria_hidden: true, class: "mr-1 align-text-bottom color-accent-brand") %><%= t("views.pins.article") %>
 				</div>
+			<% elsif story.translated_article? %>
+				<div>
+					<%= inline_svg_tag("blue-check-mark.svg", alt: "", aria_hidden: true, class: "mr-1 align-text-bottom svg-custom-icon") %><%= t("views.translation.article") %>
+				</div>
 			<% end %>
+
 		</div>
 
 		<div class="crayons-story__indention">

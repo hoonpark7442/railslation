@@ -16,8 +16,6 @@ Rails.application.routes.draw do
     delete "/sign_out", to: "users/sessions#destroy"
   end
   
-  root "stories#index"
-  
   get "/async_info/base_data", controller: "async_info#base_data", defaults: { format: :json }
 
   resources :articles, only: [:create, :update]
@@ -27,6 +25,12 @@ Rails.application.routes.draw do
 
   get '/search/feed_content', to: "search#feed_content", as: :search
 
+  get "/:feed_type", to: "stories#index"
+
   get "/:username/:slug/edit", to: "articles#edit"
   get "/:username/:slug", to: "stories#show"
+
+  get "/:username", to: "stories#index"
+
+  root "stories#index"
 end

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_05_16_060913) do
+ActiveRecord::Schema.define(version: 2022_05_17_082910) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_trgm"
@@ -140,6 +140,7 @@ ActiveRecord::Schema.define(version: 2022_05_16_060913) do
     t.boolean "translated", default: false, null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "cached_author_name"
     t.index "((to_tsvector('simple'::regconfig, COALESCE((feed_source_url)::text, ''::text)) || to_tsvector('simple'::regconfig, COALESCE((title)::text, ''::text))))", name: "index_rss_feeds_on_search_fields_as_tsvector", using: :gin
     t.index ["author_id"], name: "index_rss_feeds_on_author_id"
     t.index ["cached_tag_list"], name: "index_rss_feeds_on_cached_tag_list", opclass: :gin_trgm_ops, using: :gin

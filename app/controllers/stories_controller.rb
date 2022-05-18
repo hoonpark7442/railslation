@@ -1,7 +1,8 @@
 class StoriesController < ApplicationController
   def index
     @page = (params[:page] || 1).to_i
-    @article_index = true
+
+    # return handle_rss_index if params.has_key?(:feed_type) && params[:feed_type] == 'rss_feed'
 
     handle_base_index
   end
@@ -36,34 +37,60 @@ class StoriesController < ApplicationController
       @collection_articles = @article.collection.articles.published
                                                          .order(:published_at)
     end
+
+    if @article.rss_feed
+      @rss_feed = @article.rss_feed
+    end
   end
 
   def handle_base_index
     @home_page = true
     assign_feed_stories
 
-    @article_index = true
-
     render template: "articles/index"
   end
 
   def assign_feed_stories
-    # rss feed인지 article feed인지 구분해서 쏴줘야 한다.
-    # if params[:feed_type] == "rss_feed"
-    # else
-    # end
-    @default_home_feed = true
+    if params.has_key?(:feed_type) && params[:feed_type] == 'rss_feed'
+      assign_rss_feed_stories
+    else
+      assign_article_feed_stories
+      assign_latest_rss_feed
+    end
 
-    feed = Articles::Feeds::ArticleFeed.new(page: @page)
+    @stories = @feed.default_home_feed
 
-    @stories = feed.default_home_feed
+    decorator_name = decorator_class(@stories)
 
+    @stories = decorator_name.decorate_collection(@stories)
+  end
+
+  def assign_rss_feed_stories
+    @feed = Articles::Feeds::RssFeed.new(page: @page)
+    @rss_feed_index = true
+  end
+
+  def assign_article_feed_stories
+    @feed = Articles::Feeds::ArticleFeed.new(page: @page)
     @pinned_article = pinned_article&.decorate
+  end
 
-    @stories = ArticleDecorator.decorate_collection(@stories)
+  def assign_latest_rss_feed
+    @latest_rss_feeds = RssFeed.includes(:translated_article)
+                               .order(translated: :desc, published_at: :desc, created_at: :desc)
+                               .limit(5)
   end
 
   def pinned_article
     @pinned_article ||= PinnedArticle.get
+  end
+
+  # application_record에도 중복된 코드가 있다. 리팩토링 필요
+  def decorator_class(stories)
+    prefix = stories.first.class.name
+    decorator_name = "#{prefix}Decorator"
+    decorator_name_constant = decorator_name.safe_constantize
+    
+    return decorator_name_constant unless decorator_name_constant.nil?
   end
 end
