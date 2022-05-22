@@ -1,0 +1,75 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  namespace: railslation
+  name: rails
+spec:
+  replicas: 1
+  revisionHistoryLimit: 3
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 0
+      maxSurge: 1
+  selector:
+    matchLabels:
+      app: rails
+  template:
+    metadata:
+      labels:
+        app: rails
+    spec:
+      containers:
+      - name: rails
+        image: gcr.io/railslation/railslation:latest
+        imagePullPolicy: Always
+        args: ["rails server -b 0.0.0.0 -p 3000"]
+        env:
+        - name: POSTGRES_USER
+          value: postgres
+        - name: POSTGRES_HOST
+          value: postgres-service
+        - name: POSTGRES_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: railslation-secret
+              key: pgpassword
+        - name: REDIS_URL
+          value: redis-service
+        - name: REDIS_PORT
+          value: '6379'
+        - name: KAKAO_CLIENT_ID
+          valueFrom: 
+            secretKeyRef:
+              name: railslation-secret
+              key: kakao_client_id
+        - name: NAVER_CLIENT_ID
+          valueFrom: 
+            secretKeyRef:
+              name: railslation-secret
+              key: naver_client_id
+        - name: NAVER_CLIENT_SECRET
+          valueFrom: 
+            secretKeyRef:
+              name: railslation-secret
+              key: naver_client_secret
+        - name: RAILS_LOG_TO_STDOUT
+          value: "true"
+        - name: RAILS_SERVE_STATIC_FILES
+          value: 'true'
+        ports:
+        - containerPort: 3000
+        livenessProbe:
+          httpGet:
+            path: /health_check/healthcheck
+            port: 3000
+          timeoutSeconds: 5
+          initialDelaySeconds: 10
+          periodSeconds: 30
+        readinessProbe:
+          httpGet:
+            path: /health_check/healthcheck
+            port: 3000
+          timeoutSeconds: 5
+          initialDelaySeconds: 10
+          periodSeconds: 30

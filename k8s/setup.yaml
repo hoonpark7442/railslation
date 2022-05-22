@@ -1,0 +1,49 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  namespace: railslation
+  name: setup
+spec:
+  template:
+    metadata:
+      name: setup
+    spec:
+      containers:
+      - name: setup
+        image: gcr.io/railslation/railslation:latest
+        imagePullPolicy: Always
+        args: ["rake db:create && rake db:migrate"]
+        env:
+        - name: POSTGRES_USER
+          value: postgres
+        - name: POSTGRES_HOST
+          value: postgres-service
+        - name: POSTGRES_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: railslation-secret
+              key: pgpassword
+        - name: REDIS_URL
+          value: redis-service
+        - name: REDIS_PORT
+          value: '6379'
+        - name: KAKAO_CLIENT_ID
+          valueFrom: 
+            secretKeyRef:
+              name: railslation-secret
+              key: kakao_client_id
+        - name: NAVER_CLIENT_ID
+          valueFrom: 
+            secretKeyRef:
+              name: railslation-secret
+              key: naver_client_id
+        - name: NAVER_CLIENT_SECRET
+          valueFrom: 
+            secretKeyRef:
+              name: railslation-secret
+              key: naver_client_secret
+        - name: RAILS_LOG_TO_STDOUT
+          value: "true"
+        - name: RAILS_SERVE_STATIC_FILES
+          value: 'true'
+      restartPolicy: Never

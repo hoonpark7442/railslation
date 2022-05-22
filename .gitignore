@@ -36,3 +36,6 @@ yarn-debug.log*
 .yarn-integrity
 
 .env
+
+# ignore k8s/secret.yaml
+/k8s/secret.yaml

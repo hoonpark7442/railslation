@@ -15,6 +15,8 @@ Rails.application.routes.draw do
     get "/enter", to: "users/registrations#new", as: :sign_up
     delete "/sign_out", to: "users/sessions#destroy"
   end
+
+  get "health_check/healthcheck"
   
   get "/async_info/base_data", controller: "async_info#base_data", defaults: { format: :json }
 
