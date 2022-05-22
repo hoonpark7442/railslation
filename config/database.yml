@@ -82,5 +82,6 @@ test:
 production:
   <<: *default
   database: railslation_production
-  username: railslation
-  password: <%= ENV['RAILSLATION_DATABASE_PASSWORD'] %>
+  host: <%= ENV['POSTGRES_HOST'] %>
+  username: <%= ENV['POSTGRES_USER'] %>
+  password: <%= ENV['POSTGRES_PASSWORD'] %>

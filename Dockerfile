@@ -33,4 +33,8 @@ RUN yarn upgrade
 
 RUN RAILS_ENV=production bundle exec rake assets:precompile
 
-CMD ["bundle", "exec", "rails", "server", "-b", "0.0.0.0", "-p", "3000"]
+RUN chmod +x ./entrypoint.sh
+
+ENTRYPOINT ["./entrypoint.sh"]
+
+# CMD ["bundle", "exec", "rails", "server", "-b", "0.0.0.0", "-p", "3000"]

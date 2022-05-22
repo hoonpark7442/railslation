@@ -1,7 +1,7 @@
 require 'sidekiq'
 
 Sidekiq.configure_server do |config|
-  config.redis = { url: "#{ENV['REDIS_URL']}/#{ENV['REDIS_SIDEKIQ_DB']}" }
+  config.redis = { url: "redis://#{ENV['REDIS_URL']}:#{ENV['REDIS_PORT']}/#{ENV.fetch('REDIS_SIDEKIQ_DB', 0)}"}
   
   schedule_file = "config/schedule.yml"
 
@@ -11,5 +11,5 @@ Sidekiq.configure_server do |config|
 end
 
 Sidekiq.configure_client do |config|
-  config.redis = { url: "#{ENV['REDIS_URL']}/#{ENV['REDIS_SIDEKIQ_DB']}" }
+  config.redis = { url: "redis://#{ENV['REDIS_URL']}:#{ENV['REDIS_PORT']}/#{ENV.fetch('REDIS_SIDEKIQ_DB', 0)}"}
 end
