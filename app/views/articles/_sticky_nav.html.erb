@@ -3,11 +3,11 @@
 <div class="crayons-article-sticky grid gap-4 break-word" id="article-show-primary-sticky-nav">
 	<div class="crayons-card crayons-card--secondary branded-7 p-4 pt-0 gap-4 grid" style="border-top-color: #626997;">
 		<div class="-mt-4">
-			<a href="<%= author.path %>" class="flex">
+			<a href="/user_profile<%= author.path %>" class="flex">
 				<span class="crayons-avatar crayons-avatar--xl mr-2 shrink-0">
 					<img class="radius-full align-middle crayons-avatar__image" src="<%= Images::Profile::DEFAULT_LINK %>" alt="" loading="lazy" />
 				</span>
-				<span class="crayons-link crayons-subtitle-2 mt-5"><%= author.name %></span>
+				<span class="crayons-link crayons-subtitle-2 mt-5"><%= author.username %></span>
 			</a>
 		</div>
 

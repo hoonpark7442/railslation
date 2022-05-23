@@ -32,10 +32,10 @@
             <div class="flex s:items-start flex-col s:flex-row">
               <div class="flex flex-1 mb-5 items-start">
                 <div class="relative">
-                  <a href="/<%= @user.username %>"><img class="radius-full align-middle" src="<%= Images::Profile::DEFAULT_LINK %>" width="40" height="40" alt="<%= @user.name %>" /></a>
+                  <a href="/user_profile/<%= @user.username %>"><img class="radius-full align-middle" src="<%= Images::Profile::DEFAULT_LINK %>" width="40" height="40" alt="<%= @user.username %>" /></a>
                 </div>
                 <div class="pl-3 flex-1">
-                  <a href="/<%= @user.username %>" class="crayons-link fw-bold"><%= @user.name %></a>
+                  <a href="/user_profile/<%= @user.username %>" class="crayons-link fw-bold"><%= @user.username %></a>
                   <p class="fs-xs color-base-60">
                     <% if @article.published_timestamp.present? %>
                       <%= t("views.articles.posted_html", date: local_date(@article.published_timestamp, show_year: @article.published_timestamp.year != Time.current.year)) %>

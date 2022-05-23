@@ -1,0 +1,8 @@
+---
+ko:
+  views:
+    users:
+      email_icon: Email
+      github_icon: Github
+      tstory_icon: Tistory
+      language: language
