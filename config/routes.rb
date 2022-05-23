@@ -28,11 +28,12 @@ Rails.application.routes.draw do
   get '/search/feed_content', to: "search#feed_content", as: :search
 
   get "/:feed_type", to: "stories#index"
+  get "/user_profile/:username", to: "profiles#show"
 
   get "/:username/:slug/edit", to: "articles#edit"
   get "/:username/:slug", to: "stories#show"
 
-  get "/:username", to: "stories#index"
+  
 
   root "stories#index"
 end

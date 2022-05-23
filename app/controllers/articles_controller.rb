@@ -9,6 +9,11 @@ class ArticlesController < ApplicationController
 
   def new
     @user = current_user
+
+    if @user.nil? || !@user.admin?
+      # flash[:error] = "글을 작성하실 수 없습니다."
+      redirect_to root_path
+    end
     @article = Articles::Builder.call(@user)
   end
 

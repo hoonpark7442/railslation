@@ -7,13 +7,13 @@
 		<div class="crayons-story__top">
 			<div class="crayons-story__meta">
 				<div class="crayons-story__autor-pic">
-					<a href="/<%= story.cached_user_username %>" class="crayons-avatar crayons-avatar--l">
+					<a href="/user_profile/<%= story.cached_user_username %>" class="crayons-avatar crayons-avatar--l">
 						<img class="crayons-avatar__image" src="<%= Images::Profile::DEFAULT_LINK %>" alt="<%= story.cached_user_username %> profile" loading="lazy" />
 					</a>
 				</div>
 				<div class="ml-2">
 					<div>
-						<a href="/<%= story.cached_user_username %>" class="crayons-story__secondary fw-medium m:hidden">
+						<a href="/user_profile/<%= story.cached_user_username %>" class="crayons-story__secondary fw-medium m:hidden">
 							<%= story.cached_user_username %>
 						</a>
 						<div class="relative mb-4 s:mb-0 fw-medium hidden m:inline-block">

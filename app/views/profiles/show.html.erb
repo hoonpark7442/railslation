@@ -1,0 +1,60 @@
+<main id="main-content">
+	<%= content_for :page_meta do %>
+		<meta property="og:type" content="website" />
+		<meta property="og:title" content="parksisi" />
+	<% end %>
+
+	<% cache "user-profile-header-area-#{@user.id}-#{@user.created_at}-#{user_signed_in?}", expires_in: 10.days do %>
+		<style>
+	    :root {
+	      --profile-brand-color: #626997;
+	    }
+	  </style>
+
+	  <div class="brand-bg">
+	  	<div class="crayons-layout crayons-layout--limited-l pt-7 m:pt-9">
+	  		<header class="profile-header crayons-card mt-2">
+	  			<div class="relative profile-header__top">
+	  				<span class="crayons-avatar crayons-avatar--3xl">
+	  					<img src="<%= Images::Profile::DEFAULT_LINK %>" width="128" height="128" alt="<%= @user.name %> profile picture" class="crayons-avatar__image">
+	  				</span>
+
+	  				<div class="profile-header__actions">
+	  					
+	  				</div>
+
+	  				<div class="profile-header__details">
+	  					<h1 class="crayons-title fw-heavy mb-2"><%= @user.name %></h1>
+	  					<%= render "profiles/summary" %>
+
+	  					<div class="profile-header__meta">
+	  						<a href="mailto: sisipark1616@gmail.com" target="_blank" class="profile-header__meta__item">
+	                <%= inline_svg_tag("email-profile.svg", class: "crayons-icon mr-2 shrink-0", aria: true, width: 18, height: 18, title: t("views.users.email_icon")) %>
+	                sisipark1616@gmail.com
+	              </a>
+
+	              <a href="https://github.com/hoonpark7442" target="_blank" class="profile-header__meta__item">
+	                <%= inline_svg_tag("github.svg", class: "crayons-icon mr-2 shrink-0", aria: true, width: 18, height: 18, title: t("views.users.email_icon")) %>
+	                github
+	              </a>
+
+	              <a href="https://sirogramming.tistory.com" target="_blank" class="profile-header__meta__item">
+	                <%= inline_svg_tag("tistory.svg", class: "crayons-icon mr-2 shrink-0", aria: true, width: 14, height: 14, title: t("views.users.email_icon")) %>
+	                티스토리 블로그
+	              </a>
+	  					</div>
+	  				</div>
+
+	  				<%= render "profiles/metadata" %>
+	  			</div>
+	  		</header>
+	  	</div>
+	  </div>
+	<% end %>
+</main>
+
+<script>
+	var pageContentInner = document.getElementById('page-content-inner')
+
+	pageContentInner.style.display = 'block'
+</script>

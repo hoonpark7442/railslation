@@ -7,13 +7,13 @@
 		<div class="crayons-story__top">
 			<div class="crayons-story__meta">
 				<div class="crayons-story__autor-pic">
-					<a href="<%= root_path %>" class="crayons-avatar crayons-avatar--l">
+					<a href="<%= story.feed_source_url %>" target="_blank" class="crayons-avatar crayons-avatar--l">
 						<img class="crayons-avatar__image" alt="" id="nav-profile-image" />
 					</a>
 				</div>
 				<div class="ml-2">
 					<div>
-						<a href="<%= root_path %>" class="crayons-story__secondary fw-medium m:hidden">
+						<a href="<%= story.feed_source_url %>" target="_blank" class="crayons-story__secondary fw-medium m:hidden">
 							<%= story.cached_author_name %>
 						</a>
 						<div class="relative mb-4 s:mb-0 fw-medium hidden m:inline-block">
