@@ -144,3 +144,9 @@ a {
   width: 20px;
   vertical-align: bottom;
 }
+
+.custom-right {
+  @media screen and (max-width: 768px) {
+    right: var(--su-4);
+  }
+}

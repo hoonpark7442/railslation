@@ -10,7 +10,7 @@
     <!-- asset pipline js-->
     <%= javascript_include_tag "base", defer: true %>
     <!-- webpacker js-->
-    <%= javascript_packs_with_chunks_tag 'application', defer: true %>
+    <%= javascript_packs_with_chunks_tag 'application', 'base', defer: true %>
 
     <%= yield(:page_meta) %>
     
