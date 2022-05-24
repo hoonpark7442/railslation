@@ -1,0 +1,11 @@
+<%= content_for :page_meta do %>
+  <meta property="og:type" content="page" />
+  <meta property="og:title" content="railslation" />
+<% end %>
+
+<main id="main-content" class="crayons-layout crayons-layout--limited-l">
+  <div class="crayons-card text-styles text-padding">
+    <h1 class="fs-3xl s:fs-4xl l:fs-5xl fw-bold s:fw-heavy lh-tight mb-4 mt-0">레일즈 공식 사이트</h1>
+    <%= render "official_detail" %>
+  </div>
+</main>
