@@ -1,0 +1,15 @@
+apiVersion: cert-manager.io/v1
+
+kind: Certificate
+metadata:
+  namespace: railslation
+  name: railslation-com-tls
+spec:
+  secretName: railslation-com
+  issuerRef:
+    name: letsencrypt-prod
+    kind: ClusterIssuer
+  commonName: railslation.com
+  dnsNames:
+    - railslation.com
+    - www.railslation.com
