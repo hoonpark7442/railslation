@@ -1,0 +1,89 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  namespace: railslation
+  name: web
+spec:
+  replicas: 1
+  revisionHistoryLimit: 3
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 0
+      maxSurge: 1
+  selector:
+    matchLabels:
+      app: web
+  template:
+    metadata:
+      labels:
+        app: web
+    spec:
+      containers:
+      - name: nginx
+        image: gcr.io/railslation/railslation-nginx:latest
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 80
+        volumeMounts:
+        - name: empty-dir
+          mountPath: /app/tmp/sockets
+        readinessProbe:
+          httpGet:
+            path: /health_check/healthcheck
+            port: 80
+          timeoutSeconds: 5
+          initialDelaySeconds: 10
+          periodSeconds: 30
+        livenessProbe:
+          httpGet:
+            path: /health_check/healthcheck
+            port: 80
+          timeoutSeconds: 5
+          initialDelaySeconds: 10
+          periodSeconds: 30
+      - name: rails
+        image: gcr.io/railslation/railslation:latest
+        imagePullPolicy: Always
+        args: ["puma -C config/puma.rb"]
+        env:
+        - name: POSTGRES_USER
+          value: postgres
+        - name: POSTGRES_HOST
+          value: postgres-service
+        - name: POSTGRES_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: railslation-secret
+              key: pgpassword
+        - name: REDIS_URL
+          value: redis-service
+        - name: REDIS_PORT
+          value: '6379'
+        - name: KAKAO_CLIENT_ID
+          valueFrom: 
+            secretKeyRef:
+              name: railslation-secret
+              key: kakao_client_id
+        - name: NAVER_CLIENT_ID
+          valueFrom: 
+            secretKeyRef:
+              name: railslation-secret
+              key: naver_client_id
+        - name: NAVER_CLIENT_SECRET
+          valueFrom: 
+            secretKeyRef:
+              name: railslation-secret
+              key: naver_client_secret
+        - name: RAILS_LOG_TO_STDOUT
+          value: "true"
+        - name: RAILS_SERVE_STATIC_FILES
+          value: 'true'
+        ports:
+        - containerPort: 3000
+        volumeMounts:
+        - name: empty-dir
+          mountPath: /app/tmp/sockets
+      volumes:
+        - name: empty-dir
+          emptyDir: {}
