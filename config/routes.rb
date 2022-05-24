@@ -16,6 +16,8 @@ Rails.application.routes.draw do
     delete "/sign_out", to: "users/sessions#destroy"
   end
 
+  get "/pages/official", to: "pages#official"
+
   get "health_check/healthcheck"
   
   get "/async_info/base_data", controller: "async_info#base_data", defaults: { format: :json }
