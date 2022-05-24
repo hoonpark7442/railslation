@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+
+<head>
+  <title>404 | Railslation</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <style>
+    .container {
+      text-align: center;
+      max-width: 1500px;
+      margin: 0 auto;
+    }
+
+    .header_404 {
+      width: 100%;
+      padding: 12px 0;
+    }
+
+    .logo {
+      /* display: block; */
+      width: 380px;
+      /* margin: 0 auto; */
+    }
+
+    .head404 {
+      font-size: 32px;
+      font-weight: bold;
+      color: #FF6666
+    }
+
+    .warningMessage {
+      font-size: 16px;
+      line-height: 1.75;
+    }
+
+    .link {
+      display: block;
+      font-size: 16px;
+      color: #FF6666;
+    }
+  </style>
+</head>
+
+<body class="rails-default-error-page">
+  <div class='container'>
+    <header class="header_404">
+      <img class="logo" src="//beauty-upgrade.tw/wp-content/uploads/2018/10/LOGO.jpg" alt="Beauty Upgrade">
+    </header>
+
+    <h1 class="head404">
+      404 Not Found
+    </h1>
+    <p class='warningMessage'>
+      페이지를 찾을 수 없습니다ㅠㅠ
+    </p>
+    <div class='linkMessage'>
+      <a href='/' class='link'>
+        Top page
+      </a>
+    </div>
+
+  </div>
+  <script>
+    setTimeout(function () {
+      window.location.href = '/'
+    },3000);
+  </script>
+</body>
+
+</html>
