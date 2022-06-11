@@ -75,6 +75,9 @@ gem "aws-sdk-s3", require: false
 # add role
 gem 'rolify', '~> 6.0'
 
+# authorization
+gem 'pundit', '~> 2.2' # Object oriented authorization for Rails applications
+
 # pagination
 gem 'kaminari', '~> 1.2', '>= 1.2.2' # A Scope & Engine based, clean, powerful, customizable and sophisticated paginator
 
